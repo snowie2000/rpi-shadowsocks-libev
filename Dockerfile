@@ -5,8 +5,8 @@ ENV ARCHITECH=arm64
 WORKDIR /opt/ss-arm/
 COPY . .
 RUN wget -O rpi.zip https://github.com/raspberrypi/tools/archive/master.zip && \
-	unzip -d /usr/local/rpi rpi.zip && \
 	apt update && apt install -y \
+	unzip \
 	autoconf \
 	automake \
 	libtool \
@@ -14,6 +14,7 @@ RUN wget -O rpi.zip https://github.com/raspberrypi/tools/archive/master.zip && \
     pkg-config \
 	build-essential \
 	upx \
+	&& unzip -d /usr/local/rpi rpi.zip && rm rpi.zip \
     && apt clean --dry-run -y
 
 ENTRYPOINT ["/opt/ss-arm/entrypoint.sh"]
